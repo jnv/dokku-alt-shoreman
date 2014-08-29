@@ -6,10 +6,30 @@ version of [shoreman][shoreman], a Procfile runner written in bash.
 Normally, dokku only runs the `web` process within Procfile. The dokku-shoreman
 plugin will run all process types (web, worker, etc.) and stop them all together.
 
+## This Fork
+
+This fork changes the output style to be more verbose and log to STDOUT. This is
+intended for [12 Factor Apps][12-factor] and can be collected with 
+[logspout][logspout] and then [fluentd][fluentd].
+
+Example output:
+
+    2014-08-29T03:39:28+0000 web | 'bundle exec unicorn -N -p $PORT -c ./config/unicorn/production.rb' started with name web
+    2014-08-29T03:39:30+0000 web | Refreshing Gem list
+    2014-08-29T03:39:35+0000 web | listening on addr=0.0.0.0:5000 fd=10
+    2014-08-29T03:39:35+0000 web | master process ready
+    2014-08-29T03:39:35+0000 web | worker=0 ready
+    2014-08-29T03:39:35+0000 web | worker=1 ready
+    2014-08-29T03:39:35+0000 web | worker=2 ready
+    2014-08-29T03:45:58+0000 web | method=GET path=/ format=html controller=api action=index status=200 duration=874.05 view=79.08 db=0.00
+
+Also can be seen above is Rails [Lograge][lograge] formatting with one
+line per request.
+
 ## Installation
 
 ```sh
-git clone https://github.com/statianzo/dokku-shoreman.git /var/lib/dokku/plugins/dokku-shoreman
+git clone https://github.com/GeoCENS/dokku-shoreman.git /var/lib/dokku/plugins/dokku-shoreman
 ```
 
 All future deployments will use shoreman to start all processes.
@@ -40,3 +60,7 @@ SOFTWARE.
 
 [dokku]: https://github.com/progrium/dokku
 [shoreman]: http://hecticjeff.net/shoreman/
+[12-factor]: http://12factor.net/logs
+[logspout]: https://github.com/progrium/logspout
+[fluentd]: http://www.fluentd.org/
+[lograge]: https://github.com/roidrage/lograge
