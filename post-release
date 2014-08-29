@@ -17,11 +17,23 @@ for file in \$HOME/.profile.d/*; do source \$file; done
 hash -r
 cd \$HOME
 
+log() {
+        while read data
+        do
+                prefix="$(date --iso-8601=seconds) ${1}"
+                echo -e "$prefix | $data"
+        done
+}
+
+start_command() {
+        bash -c "$1" 2>&1 | log "$2" &
+}
+
 while read line || [ -n "\$line" ]; do
-  name=\${line%%:*}
-  command=\${line#*: }
-  echo "Starting \${name}..."
-  sh -c "\${command} | sed -e 's/^/\${name}| /'" &
+  name=${line%%:*}
+  command=${line#*: }
+  start_command "$command" "${name}"
+  echo "'${command}' started with name ${name}" | log "${name}"
 done < "Procfile"
 
 onexit() {
