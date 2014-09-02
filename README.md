@@ -24,7 +24,21 @@ Example output:
     2014-08-29T03:45:58+0000 web | method=GET path=/ format=html controller=api action=index status=200 duration=874.05 view=79.08 db=0.00
 
 Also can be seen above is Rails [Lograge][lograge] formatting with one
-line per request.
+line per request. If the `$APP_NAME` environment variable is set, then
+it will be added to requests. If it is set to `rails-app`, then expect
+this output:
+
+    2014-08-29T03:39:28+0000 rails-app | web | 'bundle exec unicorn -N -p $PORT -c ./config/unicorn/production.rb' started with name web
+    2014-08-29T03:39:30+0000 rails-app | web | Refreshing Gem list
+    2014-08-29T03:39:35+0000 rails-app | web | listening on addr=0.0.0.0:5000 fd=10
+    2014-08-29T03:39:35+0000 rails-app | web | master process ready
+    2014-08-29T03:39:35+0000 rails-app | web | worker=0 ready
+    2014-08-29T03:39:35+0000 rails-app | web | worker=1 ready
+    2014-08-29T03:39:35+0000 rails-app | web | worker=2 ready
+    2014-08-29T03:45:58+0000 rails-app | web | method=GET path=/ format=html controller=api action=index status=200 duration=874.05 view=79.08 db=0.00
+
+This can then be used to determine the log source, if it is multiplexed with
+other loggers.
 
 ## Installation
 

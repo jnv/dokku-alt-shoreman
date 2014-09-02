@@ -17,10 +17,16 @@ for file in \$HOME/.profile.d/*; do source \$file; done
 hash -r
 cd \$HOME
 
+if [ -n "$APP_NAME" ]; then
+  app=" ${APP_NAME} |"
+else
+  app=""
+fi
+
 log() {
         while read data
         do
-                prefix="$(date --iso-8601=seconds) ${1}"
+                prefix="$(date --iso-8601=seconds)$app ${1}"
                 echo -e "$prefix | $data"
         done
 }
