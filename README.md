@@ -1,4 +1,4 @@
-# dokku-shoreman
+# dokku-shoreman for dokku-alt
 
 dokku-shoreman is a plugin for [dokku][dokku] that injects a stripped down
 version of [shoreman][shoreman], a Procfile runner written in bash.
@@ -8,9 +8,13 @@ plugin will run all process types (web, worker, etc.) and stop them all together
 
 ## This Fork
 
-This fork changes the output style to be more verbose and log to STDOUT. This is
-intended for [12 Factor Apps][12-factor] and can be collected with 
-[logspout][logspout] and then [fluentd][fluentd].
+### dokku-alt compatibility
+
+This fork is targeted at [dokku-alt](dokku-alt), which is an enhanced fork of the original [dokku](dokku).
+
+### More verbose logs
+
+This fork changes the output style to be more verbose and log to STDOUT. This is intended for [12 Factor Apps][12-factor] and can be collected with [logspout][logspout] and then [fluentd][fluentd].
 
 Example output:
 
@@ -23,10 +27,7 @@ Example output:
     2014-08-29T03:39:35+0000 web | worker=2 ready
     2014-08-29T03:45:58+0000 web | method=GET path=/ format=html controller=api action=index status=200 duration=874.05 view=79.08 db=0.00
 
-Also can be seen above is Rails [Lograge][lograge] formatting with one
-line per request. If the `$APP_NAME` environment variable is set, then
-it will be added to requests. If it is set to `rails-app`, then expect
-this output:
+Above is Rails [Lograge][lograge] formatting with one line per request. If the `$APP_NAME` environment variable is set, then it will be added to requests. If it is set to `rails-app`, then expect this output:
 
     2014-08-29T03:39:28+0000 rails-app | web | 'bundle exec unicorn -N -p $PORT -c ./config/unicorn/production.rb' started with name web
     2014-08-29T03:39:30+0000 rails-app | web | Refreshing Gem list
@@ -37,13 +38,12 @@ this output:
     2014-08-29T03:39:35+0000 rails-app | web | worker=2 ready
     2014-08-29T03:45:58+0000 rails-app | web | method=GET path=/ format=html controller=api action=index status=200 duration=874.05 view=79.08 db=0.00
 
-This can then be used to determine the log source, if it is multiplexed with
-other loggers.
+This can then be used to determine the log source, if it is multiplexed with other loggers.
 
 ## Installation
 
 ```sh
-git clone https://github.com/GeoCENS/dokku-shoreman.git /var/lib/dokku/plugins/dokku-shoreman
+git clone https://github.com/jnv/dokku-alt-shoreman.git /var/lib/dokku-alt/plugins/dokku-shoreman
 ```
 
 All future deployments will use shoreman to start all processes.
@@ -73,6 +73,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 [dokku]: https://github.com/progrium/dokku
+[dokku-alt]: https://github.com/dokku-alt/dokku-alt
 [shoreman]: http://hecticjeff.net/shoreman/
 [12-factor]: http://12factor.net/logs
 [logspout]: https://github.com/progrium/logspout
