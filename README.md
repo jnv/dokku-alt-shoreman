@@ -10,7 +10,7 @@ plugin will run all process types (web, worker, etc.) and stop them all together
 
 ### dokku-alt compatibility
 
-This fork is targeted at [dokku-alt](dokku-alt), which is an enhanced fork of the original [dokku](dokku).
+This fork is targeted at [dokku-alt][dokku-alt], which is an enhanced fork of the original [dokku][dokku].
 
 ### More verbose logs
 
